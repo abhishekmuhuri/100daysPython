@@ -1,4 +1,4 @@
-from typing import List,Union
+from typing import List
 from random import randint
 from Player import Player
 
