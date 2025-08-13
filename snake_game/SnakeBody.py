@@ -4,6 +4,7 @@ from typing import List
 class Snake:
     def __init__(self) -> None:
         last_x = 0
+        self.INCREASEING_SIZE = False
         self.all_bodies: List[Turtle] = []
         self.__CHANGE_DIRECTION_STATE: bool = True
         for _ in range(3):
@@ -17,11 +18,57 @@ class Snake:
 
     def get_screen(self):
         return self.head.screen
+    
+    def increase_size(self):
+        self.INCREASEING_SIZE = True
+        tail_body = Turtle("square",visible=False)
+        tail_body.heading = self.get_head().heading
+        tail_body.penup()
+        tail_body.teleport(self.all_bodies[0].pos()[0]-20,self.all_bodies[0].pos()[1])
+        self.all_bodies.insert(0,tail_body)
+        self.update_head()
+        self.screen.update()
+        tail_body.showturtle()
+        self.INCREASEING_SIZE = False
+    
+    def update_head(self) -> None:
+        self.head = self.all_bodies[-1]
+
+    def collision_with_food(self,food : Turtle) -> bool:
+        return self.get_head().distance(food) <= 30
+
+    def collision(self) -> bool:
+        step = 20
+        half_width = self.screen.window_width() / 2
+        half_height = self.screen.window_height() / 2
+
+        xcor, ycor = self.head.pos()
+        heading = self.head.heading()
+
+        if heading == 0:     # Right
+            xcor += step
+        elif heading == 180: # Left
+            xcor -= step
+        elif heading == 90:  # Up
+            ycor += step
+        elif heading == 270: # Down
+            ycor -= step
+
+        for body in self.all_bodies[:-1]:  
+            if self.get_head().distance(body) < 10:
+                return True 
+
+        # Check boundaries
+        return abs(xcor) > half_width - 10 or abs(ycor) > half_height - 10
+
+        
 
     def get_head(self) -> Turtle:
         return self.all_bodies[-1]
 
     def move_forward(self) -> None:
+        if self.INCREASEING_SIZE == True:
+            return
         all_pos = []
         self.__CHANGE_DIRECTION_STATE = False
         for body in self.all_bodies:
