@@ -6,7 +6,6 @@ from food import Food
 TIMER = 120
 
 GAME_IS_ON = True
-cnt = 0
 
 screen = Screen()
 screen.tracer(0)
