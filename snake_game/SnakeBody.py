@@ -4,7 +4,7 @@ from typing import List
 class Snake:
     def __init__(self) -> None:
         last_x = 0
-        self.INCREASEING_SIZE = False
+        self.INCREASING_SIZE = False
         self.all_bodies: List[Turtle] = []
         self.__CHANGE_DIRECTION_STATE: bool = True
         for _ in range(3):
@@ -20,7 +20,7 @@ class Snake:
         return self.head.screen
     
     def increase_size(self):
-        self.INCREASEING_SIZE = True
+        self.INCREASING_SIZE = True
         tail_body = Turtle("square",visible=False)
         tail_body.heading = self.get_head().heading
         tail_body.penup()
@@ -29,7 +29,7 @@ class Snake:
         self.update_head()
         self.screen.update()
         tail_body.showturtle()
-        self.INCREASEING_SIZE = False
+        self.INCREASING_SIZE = False
     
     def update_head(self) -> None:
         self.head = self.all_bodies[-1]
@@ -67,7 +67,7 @@ class Snake:
         return self.all_bodies[-1]
 
     def move_forward(self) -> None:
-        if self.INCREASEING_SIZE == True:
+        if self.INCREASING_SIZE == True:
             return
         all_pos = []
         self.__CHANGE_DIRECTION_STATE = False
