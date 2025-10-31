@@ -10,7 +10,7 @@ class Snake:
         for _ in range(3):
             body = Turtle("square")
             body.penup()
-            body.teleport(-last_x,0)
+            body.setposition(-last_x,0)
             last_x-=20
             self.all_bodies.append(body)
         self.head = self.all_bodies[-1]
@@ -24,7 +24,7 @@ class Snake:
         tail_body = Turtle("square",visible=False)
         tail_body.heading = self.get_head().heading
         tail_body.penup()
-        tail_body.teleport(self.all_bodies[0].pos()[0]-20,self.all_bodies[0].pos()[1])
+        tail_body.setpos(self.all_bodies[0].pos()[0]-20,self.all_bodies[0].pos()[1])
         self.all_bodies.insert(0,tail_body)
         self.update_head()
         self.screen.update()
